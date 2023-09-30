@@ -15,8 +15,6 @@ public class IntegrationTestsUserController extends KeycloakTestContainers {
 
     @BeforeAll
     public static void setUp(){
-        System.setProperty("spring.security.oauth2.resourceserver.jwt.issuer-uri", keycloak.getAuthServerUrl() + "/realms/ITM");
-        System.setProperty("keycloak.auth-server-url", keycloak.getAuthServerUrl());
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
