@@ -4,6 +4,8 @@ import com.itm.space.backendresources.api.request.UserRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
+import org.springframework.test.context.ActiveProfiles;
+
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -11,6 +13,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Интеграционное тестирование UserController")
+@ActiveProfiles("test")
 public class IntegrationTestsUserController extends KeycloakTestContainers {
 
     @BeforeAll
@@ -40,10 +43,9 @@ public class IntegrationTestsUserController extends KeycloakTestContainers {
                 .get("http://localhost:9191/api/users/25d9535d-601f-4840-809c-5a8f5ab00d71");
         response.then()
                 .statusCode(200)
-                .body("firstName", equalTo(""))
-                .body("lastName", equalTo(""))
-                .body("email", equalTo(null))
-                .body("email", equalTo(null));
+                .body("firstName", equalTo("Shizad"))
+                .body("lastName", equalTo("Nullifaer"))
+                .body("email", equalTo("shizadnullifaer@gmail.com"));
         System.out.println(response.getBody().asString());
     }
 
@@ -63,8 +65,11 @@ public class IntegrationTestsUserController extends KeycloakTestContainers {
     @DisplayName("Отправляю токен пользователя, когда отправляю данные нового пользователя, должен вернуть нового пользователя")
     void givenUserToken_whenPostNewUser_shouldAddNewUser() {
         given().auth().oauth2(getToken())
-                .header("Content-type", "application/json").when()
-                .and().body(new UserRequest("test", "test@test.com", "test", "test", "test"))
+                .header("Content-type", "application/json")
+                .when()
+                .and().body(new UserRequest(
+                        "test", "test@test.com",
+                        "test", "test", "test"))
                 .when().post("http://localhost:9191/api/users")
                 .then()
                 .statusCode(200);

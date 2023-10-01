@@ -387,8 +387,9 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : false,
-    "firstName" : "",
-    "lastName" : "",
+    "firstName" : "Shizad",
+    "lastName" : "Nullifaer",
+    "email" : "shizadnullifaer@gmail.com",
     "credentials" : [ {
       "id" : "00e24d13-5175-430d-9567-1539d9336325",
       "type" : "password",
